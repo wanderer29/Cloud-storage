@@ -1,8 +1,8 @@
 @extends('layouts.app')
 
-@section('title', 'Registration')
+@section('title', 'Регистрация')
 
-@section('header_title', 'Registration')
+@section('header_title', 'Регистрация')
 
 @section('content')
     <div class="row justify-content-center">
@@ -11,7 +11,7 @@
                 <h2>Создание аккаунта</h2>
             </div>
             <div class="card-body">
-                <form action="{{ route('user.register') }}" method="POST" onsubmit="return checkPasswords()">
+                <form action="" method="POST" onsubmit="return checkPasswords()">
                     @csrf
 
                     <div class="mb-3">
@@ -31,10 +31,10 @@
                     </div>
 
                     <button type="submit" class="btn btn-primary">
-                        Register
+                        Регистрация
                     </button>
-                    <a href="{{ route('login') }}" class="btn btn-link">Login</a>
-                    <a href="{{ route('welcome') }}" class="btn btn-secondary">Back to Home</a>
+                    <a href=" {{ route('login') }}" class="btn btn-link">Логин</a>
+                    <a href=" {{ route('welcome') }}" class="btn btn-secondary">На главную</a>
                 </form>
                 @if ($errors->any())
                     <div class="alert alert-danger m-3">

@@ -22,10 +22,10 @@
                         <input class="form-control" type="password" id="password" name="password" required>
                     </div>
                     <button class="btn btn-primary" type="submit">
-                        Login
+                        Логин
                     </button>
-                    <a href="" class="btn btn-link">Регистрация</a>
-                    <a href="" class="btn btn-secondary">На главную</a>
+                    <a href="{{ route('register') }}" class="btn btn-link">Регистрация</a>
+                    <a href="{{ route('welcome') }}" class="btn btn-secondary">На главную</a>
                 </form>
                 @if (session('error'))
                     <div class="alert alert-danger m-3">
