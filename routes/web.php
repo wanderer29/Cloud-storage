@@ -1,16 +1,8 @@
 <?php
 
+use App\Http\Controllers\PageController;
 use Illuminate\Support\Facades\Route;
 
-
-Route::get('/login', function () {
-    return view('auth.login');
-})->name('login');
-
-Route::get('/register', function () {
-    return view('auth.register');
-})->name('register');
-
-Route::get('/', function () {
-    return view('welcome');
-})->name('welcome');
+Route::get('login', [PageController::class, 'showLogin'])->name('login');
+Route::get('register', [PageController::class, 'showRegister'])->name('register');
+Route::get('/', [PageController::class, 'showWelcome'])->name('welcome');
