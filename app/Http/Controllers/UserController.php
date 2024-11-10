@@ -26,13 +26,21 @@ class UserController extends Controller
     {
         $data = $request->validated();
 
-        //If Authorization success
         if (Auth::attempt($data)) {
             $request->session()->regenerate();
             return redirect()->route('home')->with('success', 'Login successful');
         }
 
         return redirect()->route('login')->with('error', 'Invalid login or password');
+    }
+
+    public function logout(): RedirectResponse
+    {
+        Auth::logout();
+        request()->session()->invalidate();
+        request()->session()->regenerateToken();
+
+        return redirect()->route('login')->with('success', 'Logout successful');
     }
 
     public function createUser(array $data): User

@@ -11,7 +11,7 @@
                 <h2>Вход в аккаунт</h2>
             </div>
             <div class="card-body">
-                <form action="" method="POST">
+                <form action="{{ route('login') }}" method="POST">
                     @csrf
                     <div class="mb-3">
                         <label class="form-label" for="login">Логин:</label>

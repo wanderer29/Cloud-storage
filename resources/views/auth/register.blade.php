@@ -11,7 +11,7 @@
                 <h2>Создание аккаунта</h2>
             </div>
             <div class="card-body">
-                <form action="" method="POST" onsubmit="return checkPasswords()">
+                <form action="{{ route('register') }}" method="POST" onsubmit="return checkPasswords()">
                     @csrf
 
                     <div class="mb-3">
