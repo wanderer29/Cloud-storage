@@ -8,9 +8,16 @@ use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Nette\Schema\ValidationException;
 
 class UserController extends Controller
 {
+    /**
+     * User register
+     *
+     * @param RegisterRequest $request
+     * @return RedirectResponse
+     */
     public function register(RegisterRequest $request): RedirectResponse
     {
         $data = $request->validated();
@@ -21,6 +28,13 @@ class UserController extends Controller
 
         return redirect()->route('home')->with('success', 'Registration successful');
     }
+
+    /**
+     * User login
+     *
+     * @param LoginRequest $request
+     * @return RedirectResponse
+     */
 
     public function login(LoginRequest $request): RedirectResponse
     {
@@ -34,6 +48,12 @@ class UserController extends Controller
         return redirect()->route('login')->with('error', 'Invalid login or password');
     }
 
+    /**
+     * User logout
+     *
+     * @return RedirectResponse
+     */
+
     public function logout(): RedirectResponse
     {
         Auth::logout();
@@ -42,6 +62,13 @@ class UserController extends Controller
 
         return redirect()->route('login')->with('success', 'Logout successful');
     }
+
+    /**
+     * Create user
+     *
+     * @param array $data
+     * @return User
+     */
 
     public function createUser(array $data): User
     {

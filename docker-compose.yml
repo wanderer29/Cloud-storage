@@ -27,6 +27,8 @@ services:
         image: mysql:8.0
         environment:
             - MYSQL_ROOT_PASSWORD=12345Qq=
+            - MYSQL_DATABASE=cloud_storage_schema
+        command: --lower_case_table_names=1
         ports:
             -   3306:3306
         volumes:

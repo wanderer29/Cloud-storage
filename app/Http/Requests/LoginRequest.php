@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\ValidationException;
 
 class LoginRequest extends FormRequest
 {
@@ -21,5 +22,16 @@ class LoginRequest extends FormRequest
             'login' => 'required|string|exists:users,login',
             'password' => 'required|string',
         ];
+    }
+
+    // Override the failedValidation method to change the behavior on error
+    protected function failedValidation(\Illuminate\Contracts\Validation\Validator $validator)
+    {
+        throw new ValidationException(
+            $validator,
+            redirect()->route('login')
+            ->withInput() // Сохраняем введённые данные в сессии
+            ->with('error', 'Invalid login or password')
+        );
     }
 }

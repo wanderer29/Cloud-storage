@@ -22,7 +22,7 @@ class UserLoginAndRegistrationTest extends TestCase
     {
         User::create([
             'login' => 'testlogin',
-            'password' => 'testpassword',
+            'password' => bcrypt('testpassword'),
         ]);
 
         $response = $this->post('/login', [
@@ -30,6 +30,43 @@ class UserLoginAndRegistrationTest extends TestCase
             'password' => 'testpassword',
         ]);
 
-        $response->assertStatus(200);
+        $response->assertStatus(302);
+        $response->assertRedirect('/home');
+        $response->assertSessionHas('success');
     }
+
+    public function testUserCannotLoginWithIncorrectPassword(): void
+    {
+        User::create([
+            'login' => 'testlogin',
+            'password' => bcrypt('testpassword'),
+        ]);
+
+        $response = $this->post('/login', [
+            'login' => 'testlogin',
+            'password' => 'testpassword1',
+        ]);
+
+        $response->assertStatus(302);
+        $response->assertRedirect('/login');
+        $response->assertSessionHas('error');
+    }
+
+    public function testUserCannotLoginWithIncorrectLogin(): void
+    {
+        User::create([
+            'login' => 'testlogin',
+            'password' => bcrypt('testpassword'),
+        ]);
+
+        $response = $this->post('/login', [
+            'login' => 'wronglogin',
+            'password' => 'testpassword',
+        ]);
+
+        $response->assertStatus(302);
+        $response->assertRedirect('/login');
+        $response->assertSessionHas('error');
+    }
+
 }

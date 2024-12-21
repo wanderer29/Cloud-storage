@@ -1,13 +1,6 @@
 FROM php:8.2-fpm
 
-RUN rm -f /etc/apt/sources.list.d/* && \
-        echo 'deb http://mirrors.linode.com/debian/ bookworm main contrib non-free' > /etc/apt/sources.list && \
-        echo 'deb-src http://mirrors.linode.com/debian/ bookworm main contrib non-free' >> /etc/apt/sources.list && \
-        echo 'deb http://mirrors.linode.com/debian-security/ bookworm-security main contrib non-free' >> /etc/apt/sources.list && \
-        echo 'deb-src http://mirrors.linode.com/debian-security/ bookworm-security main contrib non-free' >> /etc/apt/sources.list && \
-        echo 'deb http://mirrors.linode.com/debian/ bookworm-updates main contrib non-free' >> /etc/apt/sources.list && \
-        echo 'deb-src http://mirrors.linode.com/debian/ bookworm-updates main contrib non-free' >> /etc/apt/sources.list && \
-    apt-get update && \
+RUN apt-get update && \
     apt-get install -y \
     libzip-dev \
     unzip \
@@ -19,7 +12,7 @@ RUN rm -f /etc/apt/sources.list.d/* && \
     rm -rf /var/lib/apt/lists/*
 
 
-CMD ["chown", "-R", "1000:1000", "/var/www/html"]
+#CMD ["chown", "-R", "1000:1000", "/var/www/html"]
 
 RUN docker-php-ext-install pdo pdo_mysql && docker-php-ext-enable pdo_mysql
 COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
