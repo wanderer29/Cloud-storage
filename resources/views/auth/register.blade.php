@@ -57,5 +57,5 @@
 @endsection
 
 @push('scripts')
-    <script src="{{ asset('js/register.js' )}}"
+    <script src="{{ asset('js/register.js') }}"></script>
 @endpush

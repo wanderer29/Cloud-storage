@@ -2,7 +2,11 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Validation\ValidationException;
+
 use Illuminate\Foundation\Http\FormRequest;
+
 
 class RegisterRequest extends FormRequest
 {
@@ -18,7 +22,17 @@ class RegisterRequest extends FormRequest
     {
         return [
             'login' => 'required|string|between:2,30|unique:users,login',
-            'password' => 'required|string|between:6,30',
+            'password' => 'required|string|between:6,30|confirmed',
         ];
+    }
+
+    protected function failedValidation(Validator $validator)
+    {
+        throw new ValidationException(
+            $validator,
+            redirect()->route('register')
+                ->withInput()
+                ->with('error', 'The login is already taken')
+        );
     }
 }

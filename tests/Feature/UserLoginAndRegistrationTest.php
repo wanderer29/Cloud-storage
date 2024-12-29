@@ -69,4 +69,46 @@ class UserLoginAndRegistrationTest extends TestCase
         $response->assertSessionHas('error');
     }
 
+    public function testUserRegistrationSuccess(): void
+    {
+        $response = $this->post('register', [
+            'login' => 'testlogin',
+            'password' => 'testpassword',
+            'password_confirmation' => 'testpassword',
+        ]);
+
+        $response->assertStatus(302);
+        $response->assertRedirect('/home');
+        $response->assertSessionHas('success');
+    }
+
+    public function testUserRegistrationErrorWithPasswordMismatch(): void
+    {
+        $response = $this->post('register', [
+            'login' => 'testlogin',
+            'password' => 'testpassword1',
+            'password_confirmation' => 'testpassword2',
+        ]);
+
+        $response->assertRedirect('/register');
+        $response->assertStatus(302);
+        $response->assertSessionHas('error');
+    }
+
+    public function testFailedRegisterIfLoginAlreadyTaken(): void
+    {
+        User::create([
+            'login' => 'testlogin',
+            'password' =>bcrypt('testpassword'),
+        ]);
+
+        $response = $this->post('register', [
+            'login' => 'testlogin',
+            'password' => 'testpassword',
+        ]);
+
+        $response->assertStatus(302);
+        $response->assertRedirect('/register');
+        $response->assertSessionHas('error');
+    }
 }
