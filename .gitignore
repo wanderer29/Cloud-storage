@@ -24,3 +24,4 @@ yarn-error.log
 info.md
 docker/volume
 docker/volume/*
+/data
