@@ -8,7 +8,6 @@ use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Nette\Schema\ValidationException;
 
 class UserController extends Controller
 {
