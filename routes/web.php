@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FileController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -17,4 +18,5 @@ Route::middleware('auth')->group(function () {
     Route::get('home', [PageController::class, 'showHome'])->name('home');
 
     Route::post('logout', [UserController::class, 'logout'])->name('logout');
+    Route::post('upload', [FileController::class, 'upload'])->name('upload');
 });

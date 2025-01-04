@@ -9,16 +9,15 @@ class ObjectStorageService
     /**
      * Uploading file by filePath into bucket
      *
-     * @param string $bucket
      * @param string $key
      * @param string $filePath
      * @return bool
      */
-    public function uploadFile(string $bucket, string $key, string $filePath): bool
+    public function uploadFile(string $key, string $filePath): bool
     {
         try {
             $disk = Storage::disk('minio');
-            $disk->put("{$bucket}/{$key}", file_get_contents($filePath));
+            $disk->put("{$key}", file_get_contents($filePath));
             return true;
         } catch (\Exception $e) {
             return false;
