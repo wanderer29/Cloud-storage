@@ -20,7 +20,7 @@ class ObjectStorageService
             $disk->put("{$key}", file_get_contents($filePath));
             return true;
         } catch (\Exception $e) {
-            return false;
+             return false;
         }
     }
 

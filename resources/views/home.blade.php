@@ -1,11 +1,17 @@
-<div class="container mt-4">
+@extends('layouts.app')
 
-    <form action="{{ route('logout') }}" method="POST">
+@section('title', 'Облачное хранилище')
+
+@section('header_title', 'Облачное хранилище')
+
+@section('content')
+<div class="container mt-4">
+    <form style="text-align: right" action="{{ route('logout') }}" method="POST">
         @csrf
-        <button type="submit" class="btn btn-danger">Logout</button>
+        <button type="submit" class="btn btn-danger">Выход</button>
     </form>
 
-    <div class="card">
+    <div class="card mt-2">
         <div class="card-header">
             <h3>Загрузить файлы</h3>
         </div>
@@ -34,3 +40,4 @@
         </div>
     </div>
 </div>
+@endsection
