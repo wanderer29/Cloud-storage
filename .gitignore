@@ -25,3 +25,4 @@ info.md
 docker/volume
 docker/volume/*
 /data
+/todos

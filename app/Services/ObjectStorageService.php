@@ -20,7 +20,7 @@ class ObjectStorageService
             $disk->put("{$key}", file_get_contents($filePath));
             return true;
         } catch (\Exception $e) {
-             return false;
+            return false;
         }
     }
 
@@ -40,5 +40,19 @@ class ObjectStorageService
         } catch (\Exception $e) {
             return false;
         }
+    }
+
+    public function listFiles(string $bucket, string $folder): array
+    {
+        $disk = Storage::disk('minio');
+
+        $files =  $disk->files("{$bucket}/{$folder}");
+
+        return array_map(function ($file) use ($bucket) {
+            return [
+                'basename' => basename($file),
+                'path' => $file,
+            ];
+        }, $files);
     }
 }
